@@ -1,4 +1,4 @@
-=== AmR Impatient ===
+=== AmR shortcode any widget ===
 Contributors: Anmari
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=anmari%40anmari%2ecom&item_name=Shortcode widget Plugin Support&no_shipping=1&no_note=1&cn=Optional%20Notes&tax=0&currency_code=USD&bn=PP%2dDonationsBF&charset=UTF%2d8">Donate</a>
 Tags: shortcode widget page
