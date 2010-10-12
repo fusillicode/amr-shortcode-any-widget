@@ -1,5 +1,5 @@
 === AmR shortcode any widget ===
-Contributors: Anmari
+Contributors: anmari
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=anmari%40anmari%2ecom&item_name=Shortcode widget Plugin Support&no_shipping=1&no_note=1&cn=Optional%20Notes&tax=0&currency_code=USD&bn=PP%2dDonationsBF&charset=UTF%2d8">Donate</a>
 Tags: shortcode widget page
 Tested up to: 2.9.2
@@ -7,14 +7,13 @@ Version: 1.2
 Stable tag: 1.2
 
 == Description ==
-This simple 'utility' plugin allows one to have any widget used in a page shortcode in any theme - no need to use the hybrid theme or create a special template.  
-[Support]
-If you found the plugin useful, please <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=anmari%40anmari%2ecom&item_name=Shortcode widget Support&no_shipping=1&no_note=1&cn=Optional%20Notes&tax=0&currency_code=USD&bn=PP%2dDonationsBF&charset=UTF%2d8">Donate</a>
+This simple 'utility' plugin allows one to have any widget used in a page shortcode in any theme - no need to use the hybrid theme or create a special template.  For more details see [anmari.com](http://webdesign.anmari.com/category/plugins/shortcode-any-widget/)
+
 
 == Changelog ==
 = 1.12=
 
-*  Changed dummy shortcode sidebar so it appears after the theme sidebars to avoid taking over their widgets (this happened in numbered sidebars)
+*  Changed dummy shortcode sidebar so it appears after the theme sidebars to avoid taking over their widgets (this happened in numbered sidebars)  PLEASE note if you have upgraded,  you may appear to have "lost" your widgets due to this sidebar change.  You have not - they will be in your "inactive widgets" - please drag them to the new sidebar.  You may also find that you have 2 versions of the plugin, with slightly different folder names.  This will allow you to go back to the previous one to check what you had there if you need to.  Deactivate the old one and activate the new one.  Move your widgets back in.  Test then Delete the old one.    In one theme it also appeared that somehow due to this change, one of the sidebar widgets "moved" down to another sidebar.  I think that this may have had something to do with the fact that sidebars can be numbered or named, so please check all your sidebars before continuing.   As always make sure thath you know how to restore from a backup before doing any upgrades of any kind.
 *  Tested in 2.9.2, can still use either the widget name "Categories" or id=categories-6.  Note widget must have been created in the dummy shortcode sidebar.
 
 = 1.1 =
