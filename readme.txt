@@ -1,6 +1,6 @@
 === amr shortcode any widget ===
 Contributors: anmari
-Tags: shortcode widget page
+Tags: shortcode, widget, page
 Tested up to: 3.2.1
 Version: 1.3
 Stable tag: trunk
