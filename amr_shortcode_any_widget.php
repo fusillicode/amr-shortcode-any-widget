@@ -2,9 +2,9 @@
 /*
 Plugin Name: amr shortcode any widget
 Plugin URI: http://webdesign.anmari.com/shortcode-any-widget/
-Description: Allows inclusion of any widget within a page for any theme.  [do_widget widgetname ] or  [do_widget "widget name" ]
-Author: Anna-marie Redpath
-Version: 1.2
+Description: Allows inclusion of any widget within a page for any theme.  [do_widget widgetname ] or  [do_widget "widget name" ]. Warning if upgraded from 1.1 t- Don't panic, please see changelog about the shortcodes sidebar.  Add ?do_widget_debug to see list of widget ids that can be used.
+Author: anmari
+Version: 1.3
 Author URI: http://webdesign.anmari.com
 
 */
@@ -13,15 +13,18 @@ Author URI: http://webdesign.anmari.com
 /*-----------------------------------*/
 function do_widget($atts) {
 
-global $wp_registered_widgets, $_wp_sidebars_widgets,$wp_registered_sidebars;
+global $wp_registered_widgets, $_wp_sidebars_widgets, $wp_registered_sidebars;
+
 
 /* check if the widget is in  the shortcode x sidebar  if not , just use generic, 
 if it is in, then get the instance  data and use that */
-if (isset($_REQUEST['do_widget_debug'])) $debug=true;
+	if (isset($_REQUEST['do_widget_debug'])) $debug=true;
+	else $debug = false;
 
 	if (isset($_wp_sidebars_widgets) ) {
 		if ($debug) { 
-		var_dump($atts);
+			echo '<br />Attributes entered:<br />';
+			var_dump($atts);
 			echo '<br />Available sidebars and widgets<br />';
 			foreach ($_wp_sidebars_widgets as $i=> $w) {
 				echo 'Sidebar:&nbsp;<b>'.$i.': '.get_sidebar_name($i).'</b><br />';
@@ -49,12 +52,18 @@ if (isset($_REQUEST['do_widget_debug'])) $debug=true;
 
 	/* the widget need not be specified, [do_widget widgetname] is adequate */
 	if (!empty($atts[0])) {
-		if ($debug) echo 'We have a name';
+		if ($debug) {
+			echo 'We have a name';
+			print_r($atts[0]);
+			//var_dump($wp_registered_widgets);
+		}
 		$widget = $atts[0];
 		
 		foreach ($wp_registered_widgets as $i => $w) { /* get the official internal name or id that the widget was registered with  */
 			if (strtolower($w['name']) === strtolower($widget)) $widget_ids[] = $i;
+			if ($debug) {echo '<br /> Check: '.$w['name'];}
 		}
+		
 		
 	}	
 	else { /* check for id if we do not have a name */
@@ -73,7 +82,22 @@ if (isset($_REQUEST['do_widget_debug'])) $debug=true;
 	}
 	
 	if (empty ($widget_ids)) { 
-		if ($debug) {	echo '<b>Widget not found in widget list </b>'; }
+
+		echo '<p><b>Widget not found in widget list.'
+		.' <a href="'.add_query_arg('do_widget_debug','1').'">Try debug</a></b></p>'; 
+		if ($debug) {
+			echo '<h2>As a last resort, dump the wp variables </h2>';
+			$sidebars_widgets = wp_get_sidebars_widgets(); 
+			echo '<h3> result of wp_get_sidebars_widgets()</h3>';
+			foreach ($sidebars_widgets as $i=>$w) {
+				echo '<br/>'.$i; var_dump($w);
+				};
+
+			echo '<h3>$_wp_sidebars_widgets:</h3>';
+			var_dump($_wp_sidebars_widgets);
+			echo '<br /><h3>$wp_registered_widgets:</h3>';
+			var_dump($wp_registered_widgets);
+		}
 		return (false) ;
 	}
 
@@ -116,14 +140,19 @@ if (isset($_REQUEST['do_widget_debug'])) $debug=true;
 	if (empty ($wid)) { 
 		if ($debug) {	echo '<h2>No Widget ids in sidebar '.$sidebarid.' with name '.$sidebar.' Try defaults </h2>';}
 		unset($sidebar); unset($sidebarid);
+
 		}
 	else 	
 		/*  There may only be one but if we have two in our chosen widget then it will do both */
+		$output = '';
 		foreach ($wid as $i=>$widget_instance) {
 			ob_start();  /* catch the echo output, so we can control where it appears in the text  */
 			shortcode_sidebar($widget_instance, $sidebar, $title);
 			$output .= ob_get_clean();
 			}
+			
+	
+			
 	return ($output);
 }
 /*-----------------------------------*/
@@ -150,6 +179,9 @@ global $wp_registered_sidebars;
 /* -------------------------------------------------------------------------*/
 function shortcode_sidebar( $id, $index=1, $title=true) { /* This is basically the wordpress code, slightly modified  */
 	global $wp_registered_sidebars, $wp_registered_widgets;
+	
+	if (isset($_REQUEST['do_widget_debug'])) $debug=true;
+	else $debug = false;
 
 	if ( is_int($index) ) {
 		$index = "sidebar-$index";
@@ -165,9 +197,12 @@ function shortcode_sidebar( $id, $index=1, $title=true) { /* This is basically t
 
 	$sidebars_widgets = wp_get_sidebars_widgets(); 
 	
-	if ($debug) foreach ($wp_registered_widgets as $i=>$w) {
+	if ($debug) {
+		echo '<h3> result of wp_get_sidebars_widgets()</h3>';
+		foreach ($sidebars_widgets as $i=>$w) {
 		echo '<br />'.$w['name'].' '.$w['id'];
-	};
+		};
+	}
 	
 	
 	/* DONT NEED TO BE ACTIVE ? if there are no active widgets */
@@ -201,13 +236,20 @@ function shortcode_sidebar( $id, $index=1, $title=true) { /* This is basically t
 				$classname_ .= '_' . get_class($cn);
 		}
 		$classname_ = ltrim($classname_, '_');
-		$params[0]['before_widget'] = sprintf($params[0]['before_widget'], $id, $classname_);
+		if (!empty($params[0]['before_widget'])) 
+			$params[0]['before_widget'] = sprintf($params[0]['before_widget'], $id, $classname_);
+		else $params[0]['before_widget'] = '';
+		if (empty($params[0]['after_widget'])) $params[0]['after_widget'] = '';
 
 		$params = apply_filters( 'dynamic_sidebar_params', $params );
 		
 		if (!$title) { /* amr switch off the title html, still need to get rid of title separately */
 			$params[0]['before_title'] = '<span style="display: none">';
 			$params[0]['after_title'] = '</span>';
+		}
+		else {
+			$params[0]['before_title'] = '<h2>';
+			$params[0]['after_title'] = '</h2>';
 		}
 
 		$callback = $wp_registered_widgets[$id]['callback'];
@@ -218,7 +260,7 @@ function shortcode_sidebar( $id, $index=1, $title=true) { /* This is basically t
 //	}
 	return $did_one;
 }
-
+/* -------------------------------------------------------------------------------------------------------------*/
 function amr_reg_sidebar() {
 if ( function_exists('register_sidebar') )  
 	register_sidebar(array('name'=>'Shortcodes',
@@ -233,8 +275,6 @@ if ( function_exists('register_sidebar') )
 add_action('admin_init', 'amr_reg_sidebar'); 
 add_shortcode('do_widget', 'do_widget');
 
-// add_action('setup_theme', 'do_widget_sidebar', 99);  /*  Try this so the register sidebar will execute later after theme setup.  Unnamed sidebars were being impacted.  ** Does not help - wp seems to lose the widget setup then - does not keep it.*/
-//function do_widget_sidebar () {
-/* Create a sidebar that will not appear in any theme, but can be used to customise widget settings if default settings not suitable */
+require_once(ABSPATH . 'wp-includes/widgets.php');
 
 ?>
