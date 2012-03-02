@@ -2,9 +2,9 @@
 /*
 Plugin Name: amr shortcode any widget
 Plugin URI: http://webdesign.anmari.com/shortcode-any-widget/
-Description: Allows inclusion of any widget within a page for any theme.  [do_widget widgetname ] or  [do_widget "widget name" ]. Warning if upgraded from 1.1 t- Don't panic, please see changelog about the shortcodes sidebar.  Add ?do_widget_debug to see list of widget ids that can be used.
+Description: Include any widget in a page for any theme.  [do_widget widgetname ] or  [do_widget "widget name" ]. If upgrading see changelog.  Can be very powerful eg: with queryposts widget it can bceome a templater.
 Author: anmari
-Version: 1.3
+Version: 1.4
 Author URI: http://webdesign.anmari.com
 
 */
@@ -23,6 +23,7 @@ if it is in, then get the instance  data and use that */
 
 	if (isset($_wp_sidebars_widgets) ) {
 		if ($debug) { 
+			echo '<h3>DEBUG on: Please scroll down till you find the shortcodes sidebar.</h3>';
 			echo '<br />Attributes entered:<br />';
 			var_dump($atts);
 			echo '<br />Available sidebars and widgets<br />';
@@ -72,7 +73,7 @@ if it is in, then get the instance  data and use that */
 				foreach ($wp_registered_widgets as $i => $w) { /* get the official internal name or id that the widget was registered with  */
 					if ($w['id'] === $id) $widget_ids[] = $id;
 				}
-				if ($debug) {echo '<h2>We have an id: '.$id.'</h2>'; var_dump($widget_ids);}
+				if ($debug) {echo '<h2>We have an id: '.$id.'</h2>'; if (!empty($widget_ids)) var_dump($widget_ids);}
 			}
 			else {
 				if ($debug) {	echo 'No valid widget name or id given';}			
@@ -107,8 +108,9 @@ if it is in, then get the instance  data and use that */
 	if (!($sidebarid = get_sidebar_id ($sidebar))) $sidebarid=$sidebar;   /* get the official sidebar id - will take the first one */
 	
 	if ($debug) {	
+		if (empty($widget)) $widget = '';
 		echo '<hr>Looking for widget with name:'.$widget.' or id='.$id.' Found instances:'.' <br />'; 
-		foreach ($widget_ids as $i=> $w) {
+		if (!empty($widget_ids)) foreach ($widget_ids as $i=> $w) {
 			echo $w.'<br />';
 		};		
 	}
@@ -136,7 +138,7 @@ if it is in, then get the instance  data and use that */
 			if ($debug) {echo '<br />Sidebar '.$sidebar.'with sidebarid '.$sidebarid.' empty or not defined.'; }
 		}
 	
-
+	$output = '';
 	if (empty ($wid)) { 
 		if ($debug) {	echo '<h2>No Widget ids in sidebar '.$sidebarid.' with name '.$sidebar.' Try defaults </h2>';}
 		unset($sidebar); unset($sidebarid);
