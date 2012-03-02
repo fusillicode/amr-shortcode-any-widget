@@ -1,15 +1,35 @@
 === amr shortcode any widget ===
 Contributors: anmari
-Tags: shortcode, widget, page
-Tested up to: 3.2.1
-Version: 1.3
+Tags: shortcode, widget, page, templates, page template
+Tested up to: 3.3.1
+Version: 1.4
 Stable tag: trunk
 
 == Description ==
-This simple 'utility' plugin allows one to have any widget used in a page shortcode in any theme - no need to use the hybrid theme or create a special template.  For more details see [anmari.com](http://webdesign.anmari.com/category/plugins/shortcode-any-widget/)
+This simple 'utility' plugin allows one to have any widget used in a page shortcode in any theme - no need to use the hybrid theme or create a special template. You could use the query posts widget in the page to create a archive within a page, or the rss widget to list feed content from other sites.  For more details see [anmari.com](http://webdesign.anmari.com/category/plugins/shortcode-any-widget/)
+
+1. Test chosen widget works in normal sidebar first.  
+2. Activate this plugin
+3. Go to Appearance > widgets and find "shortcode" sidebar
+4. Drag chosen widgets from configured sidebar to shortcodes sidebar. Save. 
+5.  Go to page where you want configured widget to appear
+6.  enter one of:
+ [do_widget widgetname]   eg: [do_widget calendar]
+ [do_widget "widget name"].   eg: [do_widget "tag cloud"]
+ [do_widget id=widgetid] in a page or post
+7. If the plugin cannot work out what you want, it will show a debug prompt
+, click on the debug prompt and look for the id of your widget in the shortcodes sidebar (you may have to scroll through a lot of debug nfo). Try with the id.   Sometimes the widget name that wordpress calls it internally is not the same as what you see on the screen and you willneed the 'debug' to find the id.
+
+Plugin has been tested with most standard widgets (rss feeds, tag cloud, pages, meta, search, and of course my own plugins widgets - upcoming events list, calendar and user lists.
+
+If you use a widget more than once for different reasons, you may need to use the widget id to isolate which widget instance and it's settings to use.  ie: [do_widget id=categories-6] .  If you just use the name, it will display all widgets in the shortcode sidebar with that name (all instances). 
 
 
 == Changelog ==
+= Version 1.4 =
+*  Updated readme - made very detailed steps and added some screen shots.
+*  Tested on wp 3.3.1 and fixed some notices when bad parameters entered. 
+
 = Version 1.3 =
 *  Added debug link and retested. Added readme.
 
@@ -28,7 +48,8 @@ This simple 'utility' plugin allows one to have any widget used in a page shortc
 == Installation ==
 
 0. Activate plugin
-1. Drag widgets to shortcodes sidebar. Save.
+1. Goto Appearance > widgets and find "shortcode" sidebar
+1. Drag chosen widgets to shortcodes sidebar. Save. (note the names)
 2. Add [do_widget id=widgetid] in a page or post
 3. If it fails, click on the debug prompt and look for the id of your widget, use that.
 
@@ -39,7 +60,13 @@ If you use a widget more than once for different shortcodes, you can use the wid
 
 == Screenshots ==
 
-1.  Demonstration of two widgets being used via the do_widget short code.
-2.  The Page or post with the do_widget shortcodes
-3.  The shortcode sidebar.  The widget's user interface (UI) is used to provide a UI for the do_widget shortcode. 
+1.  setting up widgets in page (must be in the shortcode sidebar)
+2.  widgets in a page
+3.  setting up widgets in the shortcode sidebar
+4.  two rss feed widgets in shortcode sidebar - both will show if just name used
+5.  Demonstration of two widgets being used via the do_widget short code.
+6.  The Page or post with the do_widget shortcodes
+7.  The shortcode sidebar.  The widget's user interface (UI) is used to provide a UI for the do_widget shortcode. 
+8.  Debug prompt if one enters something like id=junk
+9.  Debug messages - scroll down till you see the shortcodes sidebar - the widgets and their ids will be listed.  Use the id of the widet you want.
  
