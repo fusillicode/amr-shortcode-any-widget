@@ -4,7 +4,7 @@ Plugin Name: amr shortcode any widget
 Plugin URI: http://webdesign.anmari.com/shortcode-any-widget/
 Description: Include any widget in a page for any theme.  [do_widget widgetname ] or  [do_widget "widget name" ]. If upgrading see changelog.  Can be very powerful eg: with queryposts widget it can bceome a templater.
 Author: anmari
-Version: 1.4
+Version: 1.5
 Author URI: http://webdesign.anmari.com
 
 */
@@ -139,12 +139,12 @@ if it is in, then get the instance  data and use that */
 		}
 	
 	$output = '';
-	if (empty ($wid)) { 
+	if (empty ($wid) or (!is_array($wid)) or (count($wid) < 1)) { 
 		if ($debug) {	echo '<h2>No Widget ids in sidebar '.$sidebarid.' with name '.$sidebar.' Try defaults </h2>';}
 		unset($sidebar); unset($sidebarid);
 
 		}
-	else 	
+	else {	
 		/*  There may only be one but if we have two in our chosen widget then it will do both */
 		$output = '';
 		foreach ($wid as $i=>$widget_instance) {
@@ -153,7 +153,7 @@ if it is in, then get the instance  data and use that */
 			$output .= ob_get_clean();
 			}
 			
-	
+	}
 			
 	return ($output);
 }

@@ -2,7 +2,7 @@
 Contributors: anmari
 Tags: shortcode, widget, page, templates, page template
 Tested up to: 3.3.1
-Version: 1.4
+Version: 1.5
 Stable tag: trunk
 
 == Description ==
@@ -18,14 +18,21 @@ This simple 'utility' plugin allows one to have any widget used in a page shortc
  [do_widget "widget name"].   eg: [do_widget "tag cloud"]
  [do_widget id=widgetid] in a page or post
 7. If the plugin cannot work out what you want, it will show a debug prompt
-, click on the debug prompt and look for the id of your widget in the shortcodes sidebar (you may have to scroll through a lot of debug nfo). Try with the id.   Sometimes the widget name that wordpress calls it internally is not the same as what you see on the screen and you willneed the 'debug' to find the id.
+, click on the debug prompt and look for the id of your widget in the shortcodes sidebar (you may have to scroll through a lot of debug nfo). Try with the id.   Sometimes the widget name that wordpress calls it internally is not the same as what you see on the screen and you will need the 'debug' to find the id.
 
 Plugin has been tested with most standard widgets (rss feeds, tag cloud, pages, meta, search, and of course my own plugins widgets - upcoming events list, calendar and user lists.
 
 If you use a widget more than once for different reasons, you may need to use the widget id to isolate which widget instance and it's settings to use.  ie: [do_widget id=categories-6] .  If you just use the name, it will display all widgets in the shortcode sidebar with that name (all instances). 
 
+If you liked this plugin, you might also like my other plugins:
+[icalevents.com](http://icalevents.com) - a ics compliant events plugin fully integrated with wordpress, so it will work with many other plugins (seo, maps, social)
+[wpusersplugin.com](http://wpusersplugin.com) - a suite of plugins to help with membership sites. Major plugin is [amr users](http://wordpress.org/extend/plugins/amr-users/)
+
 
 == Changelog ==
+= Version 1.5 =
+*  Fixed: a small bug which caused a warning if you had not saved the widgets in your shortcode sidebar
+
 = Version 1.4 =
 *  Updated readme - made very detailed steps and added some screen shots.
 *  Tested on wp 3.3.1 and fixed some notices when bad parameters entered. 
