@@ -1,8 +1,8 @@
 === amr shortcode any widget ===
 Contributors: anmari
 Tags: shortcode, widget, page, templates, page template
-Tested up to: 3.3.1
-Version: 1.5
+Tested up to: 3.4.1
+Version: 1.6
 Stable tag: trunk
 
 == Description ==
@@ -30,6 +30,10 @@ If you liked this plugin, you might also like my other plugins:
 
 
 == Changelog ==
+= Version 1.6 =
+*  Add: added a settings page to help people out (not really settings)
+*  Fix: changed a clashing function name
+
 = Version 1.5 =
 *  Fixed: a small bug which caused a warning if you had not saved the widgets in your shortcode sidebar
 

@@ -2,9 +2,9 @@
 /*
 Plugin Name: amr shortcode any widget
 Plugin URI: http://webdesign.anmari.com/shortcode-any-widget/
-Description: Include any widget in a page for any theme.  [do_widget widgetname ] or  [do_widget "widget name" ]. If upgrading see changelog.  Can be very powerful eg: with queryposts widget it can bceome a templater.
+Description: Include any widget in a page for any theme.  [do_widget widgetname ] or  [do_widget "widget name" ]. If upgrading see changelog.  Can be very powerful eg: with queryposts widget it can become a templater.
 Author: anmari
-Version: 1.5
+Version: 1.6
 Author URI: http://webdesign.anmari.com
 
 */
@@ -28,7 +28,7 @@ if it is in, then get the instance  data and use that */
 			var_dump($atts);
 			echo '<br />Available sidebars and widgets<br />';
 			foreach ($_wp_sidebars_widgets as $i=> $w) {
-				echo 'Sidebar:&nbsp;<b>'.$i.': '.get_sidebar_name($i).'</b><br />';
+				echo 'Sidebar:&nbsp;<b>'.$i.': '.amr_get_sidebar_name($i).'</b><br />';
 				if (is_array($w)) {
 					sort ($w);
 					foreach ($w as $i2=> $w2) {
@@ -39,7 +39,9 @@ if it is in, then get the instance  data and use that */
 			};
 		}
 	}
-	else { if ($debug) {echo '<br />No widgets defined'; }
+	else { //if ($debug) {
+		echo '<br />No widgets defined at all'; 
+		//}
 			return (false);
 		}
 
@@ -73,7 +75,10 @@ if it is in, then get the instance  data and use that */
 				foreach ($wp_registered_widgets as $i => $w) { /* get the official internal name or id that the widget was registered with  */
 					if ($w['id'] === $id) $widget_ids[] = $id;
 				}
-				if ($debug) {echo '<h2>We have an id: '.$id.'</h2>'; if (!empty($widget_ids)) var_dump($widget_ids);}
+				if ($debug) {
+					echo '<h2>We have an id: '.$id.'</h2>'; 
+					if (!empty($widget_ids)) var_dump($widget_ids);
+				}
 			}
 			else {
 				if ($debug) {	echo 'No valid widget name or id given';}			
@@ -102,10 +107,13 @@ if it is in, then get the instance  data and use that */
 		return (false) ;
 	}
 
-	if ($title == 'false') $title = false; /* If ask not to display title, then do not */
-	else $title = true;
+	if ($title == 'false') 
+		$title = false; /* If ask not to display title, then do not */
+	else 
+		$title = true;
 	
-	if (!($sidebarid = get_sidebar_id ($sidebar))) $sidebarid=$sidebar;   /* get the official sidebar id - will take the first one */
+	if (!($sidebarid = get_sidebar_id ($sidebar))) 
+		$sidebarid=$sidebar;   /* get the official sidebar id - will take the first one */
 	
 	if ($debug) {	
 		if (empty($widget)) $widget = '';
@@ -127,21 +135,26 @@ if it is in, then get the instance  data and use that */
 		}
 			/* get the intersect of the 2 widget setups so we just get the widget we want  */
 
-			$wid = array_intersect ($_wp_sidebars_widgets[$sidebarid], $widget_ids );
+		$wid = array_intersect ($_wp_sidebars_widgets[$sidebarid], $widget_ids );
 			if ($debug) { echo '<br />Will use widget ids'.'<br />';
 				foreach ($widget_ids as $i=> $w) {
 					echo '&nbsp;&nbsp;&nbsp;'.$w.'<br />';
 				};
 			}
-		}
+	}
 		else { /* the sidebar is not defined */
-			if ($debug) {echo '<br />Sidebar '.$sidebar.'with sidebarid '.$sidebarid.' empty or not defined.'; }
+			//if ($debug) {
+			echo '<br />Sidebar '.$sidebar.'with sidebarid '.$sidebarid.' empty or not defined.'; 
+			//}
 		}
 	
 	$output = '';
 	if (empty ($wid) or (!is_array($wid)) or (count($wid) < 1)) { 
-		if ($debug) {	echo '<h2>No Widget ids in sidebar '.$sidebarid.' with name '.$sidebar.' Try defaults </h2>';}
-		unset($sidebar); unset($sidebarid);
+		//if ($debug) {	
+		echo '<h2>Widget '.$widget.' not in sidebar with id '.$sidebarid.' and with name '.$sidebar.'</h2>';
+		//}
+		unset($sidebar); 
+		unset($sidebarid);
 
 		}
 	else {	
@@ -158,7 +171,7 @@ if it is in, then get the instance  data and use that */
 	return ($output);
 }
 /*-----------------------------------*/
-function get_sidebar_name ($id) { /* dont need anymore ? or at least temporarily */
+function amr_get_sidebar_name ($id) { /* dont need anymore ? or at least temporarily */
 /* walk through the registered sidebars with a name and find the id - will be something like sidebar-integer.  take the first one */
 global $wp_registered_sidebars;	
 	foreach ($wp_registered_sidebars as $i => $a) {
@@ -182,8 +195,10 @@ global $wp_registered_sidebars;
 function shortcode_sidebar( $id, $index=1, $title=true) { /* This is basically the wordpress code, slightly modified  */
 	global $wp_registered_sidebars, $wp_registered_widgets;
 	
-	if (isset($_REQUEST['do_widget_debug'])) $debug=true;
-	else $debug = false;
+	if (isset($_REQUEST['do_widget_debug'])) 
+		$debug=true;
+	else 
+		$debug = false;
 
 	if ( is_int($index) ) {
 		$index = "sidebar-$index";
@@ -202,7 +217,7 @@ function shortcode_sidebar( $id, $index=1, $title=true) { /* This is basically t
 	if ($debug) {
 		echo '<h3> result of wp_get_sidebars_widgets()</h3>';
 		foreach ($sidebars_widgets as $i=>$w) {
-		echo '<br />'.$w['name'].' '.$w['id'];
+			echo '<br />'.$w['name'].' '.$w['id'];
 		};
 	}
 	
@@ -272,10 +287,13 @@ if ( function_exists('register_sidebar') )
 		'before_title'  => '<h2 class="widgettitle">',
 		'after_title'   => '</h2>' )); 
 }
-/* -------------------------------------------------------------------------------------------------------------*/
 
+include ('amr-admin-form-html.php');
+if (is_admin() )  $amr_saw_plugin_admin = new amr_saw_plugin_admin();
 add_action('admin_init', 'amr_reg_sidebar'); 
+
 add_shortcode('do_widget', 'do_widget');
+
 
 require_once(ABSPATH . 'wp-includes/widgets.php');
 
