@@ -4,7 +4,7 @@ Plugin Name: amr shortcode any widget
 Plugin URI: http://webdesign.anmari.com/shortcode-any-widget/
 Description: Include any widget in a page for any theme.  [do_widget widgetname ] or  [do_widget "widget name" ]. If upgrading see changelog.  Can be very powerful eg: with queryposts widget it can become a templater.
 Author: anmari
-Version: 1.7
+Version: 1.8
 Author URI: http://webdesign.anmari.com
 
 */

@@ -2,7 +2,7 @@
 Contributors: anmari
 Tags: shortcode, widget, page, templates, page template
 Tested up to: 3.8.1
-Version: 1.7
+Version: 1.8
 Stable tag: trunk
 
 == Description ==
@@ -31,9 +31,11 @@ If you liked this plugin, you might also like my other plugins:
 
 
 == Changelog ==
+= Version 1.8 =
+*  Whoops - had renamed the main file and forgot to delete it from the svn. Forcing a version number change to ensure files get cleaned up for everyone
+
 = Version 1.7 =
 *  Change: Changed so that debugs and debug prompt will only show to a logged in administrator.
-
 
 = Version 1.6 =
 *  Add: added a settings page to help people out (not really settings)
