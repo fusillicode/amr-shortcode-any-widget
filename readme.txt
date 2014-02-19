@@ -2,11 +2,13 @@
 Contributors: anmari
 Tags: shortcode, widget, page, templates, page template
 Tested up to: 3.8.1
-Version: 2
-Stable tag: 1.8
+Version: 2.1
+Stable tag: trunk
 
 == Description ==
-This simple 'utility' plugin allows one to have any widget used in a page shortcode in any theme - no need to use the hybrid theme or create a special template. You could use the query posts widget in the page to create a archive within a page, or the rss widget to list feed content from other sites.  For more details see [anmari.com](http://webdesign.anmari.com/category/plugins/shortcode-any-widget/)
+Insert widgets or a widget area into a page.  Works by creating an extra sidebar/widget area that you can use to store the widgets settings.  Plugin will then call that widget instance from the do_widget shortcode, or that sidebar from the do_wdget_area shortcode. 
+You could use the query posts widget in the page to create a archive within a page, or the rss widget to list feed content from other sites.  
+For more details see [anmari.com](http://webdesign.anmari.com/category/plugins/shortcode-any-widget/)
 
 1. Test your chosen widget works in a normal sidebar or widget area first. 
 2. Then Activate this plugin
@@ -39,6 +41,10 @@ If you liked this plugin, you might also like my other plugins:
 
 
 == Changelog ==
+= Version 2.1 =
+* Bug Fix - last sidebar registered by theme was being overwritten by the attempt to copy the themes sidebar arguments so that cleverly (hopefully) the shortcode widgets would pick up the same styling.  Fixed now.  Now it really does pickup the first sidebars styling - with devasting consquence in twenty-fourteen theme - yes white text on white background is not fun to read.  But on other themes it works a treat.
+
+
 = Version 2 =
 * Shortcode widget id changed so that wordpress will save the shortcode settings per theme.  
 * Added Code to auto upgrade, but just in case please check your widgets page.  Look at the inactive widgets if the widgets are not in your widgets for shortcodes sidebar.

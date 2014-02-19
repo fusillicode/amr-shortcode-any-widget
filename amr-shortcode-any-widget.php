@@ -4,7 +4,7 @@ Plugin Name: amr shortcode any widget
 Plugin URI: http://webdesign.anmari.com/shortcode-any-widget/
 Description: Include any widget in a page for any theme.  [do_widget widgetname ] or  [do_widget "widget name" ] or include a whole widget area [do_widget_area]. If upgrading see changelog.  Can be very powerful eg: with queryposts widget it can become a templater.
 Author: anmari
-Version: 2.0
+Version: 2.1
 Author URI: http://webdesign.anmari.com
 
 */
@@ -44,7 +44,6 @@ if it is in, then get the instance  data and use that */
 	}
 
 	extract(shortcode_atts(array(
-	//	'sidebar' => 'Shortcodes',
 		'sidebar' => 'Widgets for Shortcodes',
 		'id' => '',
 		'name' => '', /* MKM added explicit 'name' attribute.  For existing users we still need to allow prev method, else too many support queries will happen */
@@ -252,7 +251,7 @@ if ( function_exists('register_sidebar') )  {  // maybe later, get the first mai
 	
 		
 	if (!empty($wp_registered_sidebars)) {  // we got some sidebars already.
-		$main_sidebar = array_pop($wp_registered_sidebars);  // Grab the first sidebar and use that as defaults for the widgets
+		$main_sidebar = reset($wp_registered_sidebars);  // Grab the first sidebar and use that as defaults for the widgets
 		$args['before_widget'] 	= $main_sidebar['before_widget'];
 		$args['after_widget'] 	= $main_sidebar['after_widget'];
 		$args['before_title'] 	= $main_sidebar['before_title'];
@@ -271,9 +270,9 @@ include ('amr-utilities.php');
 if (is_admin() )  $amr_saw_plugin_admin = new amr_saw_plugin_admin();  
 
 add_action('widgets_init', 		'amr_reg_sidebar',98);   // register late so it appears last
-add_action('widgets_init', 		'amr_upgrade_sidebar',99);  // copy old shortcodes sidebar to new one if necessary
-add_action('switch_theme', 		'amr_save_shortcodes_sidebar'); 
-add_action('after_switch_theme','amr_restore_shortcodes_sidebar');
+//add_action('widgets_init', 		'amr_upgrade_sidebar',99);  // copy old shortcodes sidebar to new one if necessary
+//add_action('switch_theme', 		'amr_save_shortcodes_sidebar'); 
+//add_action('after_switch_theme','amr_restore_shortcodes_sidebar');
 
 add_shortcode('do_widget', 		'do_widget');
 add_shortcode('do_widget_area', 'do_widget_area');  // just dump the whole widget area - to get same styling
