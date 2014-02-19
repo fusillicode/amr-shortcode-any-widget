@@ -3,7 +3,7 @@ Contributors: anmari
 Tags: shortcode, widget, page, templates, page template
 Tested up to: 3.8.1
 Version: 2
-Stable tag: trunk
+Stable tag: 1.8
 
 == Description ==
 This simple 'utility' plugin allows one to have any widget used in a page shortcode in any theme - no need to use the hybrid theme or create a special template. You could use the query posts widget in the page to create a archive within a page, or the rss widget to list feed content from other sites.  For more details see [anmari.com](http://webdesign.anmari.com/category/plugins/shortcode-any-widget/)
