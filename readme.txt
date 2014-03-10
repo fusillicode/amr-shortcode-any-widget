@@ -20,7 +20,7 @@ If that does not look good, parameters exist to override this behaviour.
 
 Change your theme? No problem, the plugin will save and restore the widgets_for_shortcode settings.  On display it will then pick up the new themes sidebar settings.  Check this still looks nice please! in some themes you may ned up with white text on a white background and will then have to override or change css.
 
-** Instructions: **
+**Instructions:**
 
 1. Test your chosen widget works in a normal sidebar or widget area first. 
 2. Then Activate this plugin
@@ -41,7 +41,7 @@ Change your theme? No problem, the plugin will save and restore the widgets_for_
 7. If the plugin cannot work out what you want and you are logged in as an administrator, it will show a debug prompt to you, the logged in admin only.   
 Click on the link 'Try debug'.  It will produce a bunch of info. Look for the id of your widget in the shortcodes sidebar (you may have to scroll through a lot of debug info). Try using the widget id.   Sometimes the widget name that wordpress calls it internally is not the same as what you see on the screen and you will need the 'debug' to find the id.
 
-** [do_widget ...] Parameters: **
+**[do_widget ...] Parameters:**
 
 *  *nameofwidget* or name="*nameofwidget*"  This is NOT the title of the widget.  THis is the name that you see in the widgets menu page even when unassigned to a sidebar.  For existing users , you can also use just the name of the widget without name=.  It must bethe first parameter then.
 *  id=*wordpress assigned id of widget*
@@ -51,7 +51,8 @@ Click on the link 'Try debug'.  It will produce a bunch of info. Look for the id
 *  class=*yourclassname*  By default the plugin will add a class of amr-widget tto the wrapping html.  You can use this to add any special css.  Add css either by editing your themes stylesheet if it is a custom theme, or using something like the wordpress custom css plugin.
 *  sidebar="*sidebarname*"  will default to widgets_for_shortcode sidebar.  Only use if you want to re-use a widget already beingused in another sidebar.  THis is theme dependent and WILL break if you change themes.
 
-** [do_widget_area ...] Parameters: **
+**[do_widget_area ...] Parameters:**
+
 *  widget_area=*yourwidgetarea*  defaults to 'widgets_for_shortcodes' if nothing entered
 *  widget_area_class=none    /* option to remove theme styling by removing the widget_area class from the sidebar html */
 *  widget_classes=none     /* option to remove the widget class from the widget wrappinghtml
@@ -112,7 +113,7 @@ If you liked this plugin, you might also like my other plugins:
 = Version 1.3 =
 *  Added debug link and retested. Added readme.
 
-= 1.12=
+= 1.12 =
 *  Changed dummy shortcode sidebar so it appears after the theme sidebars to avoid taking over their widgets (this happened in numbered sidebars)  PLEASE note if you have upgraded,  you may appear to have "lost" your widgets due to this sidebar change.  You have not - they will be in your "inactive widgets" - please drag them to the new sidebar.  You may also find that you have 2 versions of the plugin, with slightly different folder names.  This will allow you to go back to the previous one to check what you had there if you need to.  Deactivate the old one and activate the new one.  Move your widgets back in.  Test then Delete the old one.    In one theme it also appeared that somehow due to this change, one of the sidebar widgets "moved" down to another sidebar.  I think that this may have had something to do with the fact that sidebars can be numbered or named, so please check all your sidebars before continuing.   As always make sure thath you know how to restore from a backup before doing any upgrades of any kind.
 *  Tested in 2.9.2, can still use either the widget name "Categories" or id=categories-6.  Note widget must have been created in the dummy shortcode sidebar.
 
@@ -138,27 +139,28 @@ If you use a widget more than once for different shortcodes, you can use the wid
  
 do_widget parameters:
 
-title=false to hide a title
-title= one of h1,h2,h3,h4,h5,strong,em
-class=yourclassname  (else it will add amr_widget)
-wrap=one of div, section, p, aside
-widget_classes=none  (will take the widget class out and the widget-title class out)
+* title=false to hide a title
+* title= one of h1,h2,h3,h4,h5,strong,em
+* class=yourclassname  (else it will add amr_widget)
+* wrap=one of div, section, p, aside
+* widget_classes=none  (will take the widget class out and the widget-title class out)
 
 do_widget_area parameters:
 
-widget_classes=none  (will take the 'widget' class out and the widget-title class out)
-widget_area_class=none (will take out the 'widget_area' class )
+* widget_classes=none  (will take the 'widget' class out and the widget-title class out)
+* widget_area_class=none (will take out the 'widget_area' class )
 
 **Styling**
+
 Check your styling.  The effects are very dependent on how your theme has specified the css that may apply to widgets and sidebars/widget areas.  It may work beautifully and have the content looking like it belongs with your theme.
 You may have undesired effects applying that do not work in the main content area.
 You may have desired effects not applying because the css is specific to a themes sidebar.
 
 Via the plugin you can do the following to affect styling:
-*  Remove the general wordpress 'widget' class from the widgets wrapping html and the 'widget_title' from the title html.  ([do_widget *widgetname* widget_classes=none] 
-*  Hardcode away from your themes html for widgets and widget title.  EG: if your theme uses aside and h2, you could specify: [do_widget *widgetname* widget_classes=none wrap=div title=h3].  By default the plugin will use whatever your first sidebar uses.  This will change if you change themes, but only if you have NOT overridden the html with wrap and title.
-*  Apply an existing class in your theme.  Use [do_widget *widgetname* class=*yourclass*].
-*  Use the addition class 'amr-widget' provided to specify alternate css in your themes stylesheet or with something like wordpress custom css.
+* Remove the general wordpress 'widget' class from the widgets wrapping html and the 'widget_title' from the title html.  ([do_widget *widgetname* widget_classes=none] 
+* Hardcode away from your themes html for widgets and widget title.  EG: if your theme uses aside and h2, you could specify: [do_widget *widgetname* widget_classes=none wrap=div title=h3].  By default the plugin will use whatever your first sidebar uses.  This will change if you change themes, but only if you have NOT overridden the html with wrap and title.
+* Apply an existing class in your theme.  Use [do_widget *widgetname* class=*yourclass*].
+* Use the addition class 'amr-widget' provided to specify alternate css in your themes stylesheet or with something like wordpress custom css.
 
  
  
