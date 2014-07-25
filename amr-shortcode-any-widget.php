@@ -36,7 +36,7 @@ global $wp_registered_widgets, $_wp_sidebars_widgets, $wp_registered_sidebars;
 
 	), $atts));
 
-	$class = 'class="amr-widget-area ';
+	$class = "class=\"amr-widget-area {$class}";
 	if (empty($widget_area_class) or !($widget_area_class=='none'))
 		$class .= ' widget-area"';
 	$output = PHP_EOL.'<div id="'.$widget_area.'" '.$class. '>';
