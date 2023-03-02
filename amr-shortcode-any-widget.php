@@ -232,7 +232,7 @@ function shortcode_sidebar( $widget_id, $name="widgets_for_shortcode", $title=tr
 		// $classname_ .= ' widget '; // wordpress seems to almost always adds the widget class
 		
 
-		$classname_ .= ' '.$class;
+		$classname_ .= ' '. preg_replace("/[^a-z0-9.]+/i", "", $class);
 
 		// we are picking up the defaults from the  thems sidebar ad they have registered heir sidebar to issue widget classes?
 		
